@@ -196,8 +196,8 @@ void aumentaCobra(Fila *cobra){
 	reg = cobra->fim->reg;
 	reg.rect.x -= reg.rect.w;
 	reg.cor[0] = 255;
-	reg.cor[1] = 0;
-	reg.cor[2] = 0;
+	reg.cor[1] = 255;
+	reg.cor[2] = 255;
 	insereNaCobra(cobra,reg);
 }
 int insereNaCobra(Fila *cobra,Registro reg){
@@ -314,11 +314,16 @@ int gerarAlimento(SDL_Renderer *renderer,Objeto *alimento){
    int colisaoAlimento(Objeto *alimento,Fila *cobra){
  	int CobraLar = cobra->inicio->reg.rect.x + (cobra->inicio->reg.rect.w), CobraMeioAlt = cobra->inicio->reg.rect.y + (cobra->inicio->reg.rect.h);
  	int AlimMaxLar = alimento->reg.rect.x + alimento->reg.rect.w, AlimMaxAlt = alimento->reg.rect.y + alimento->reg.rect.h;
+ 	printf("cobrax = (%d , %d) cobray = (%d , %d)\n",cobra->inicio->reg.rect.x,CobraLar,cobra->inicio->reg.rect.y,CobraMeioAlt);
  	printf("x = (%d , %d) y = (%d , %d)\n",alimento->reg.rect.x,AlimMaxLar,alimento->reg.rect.y,AlimMaxAlt);
-    if((CobraLar >= alimento->reg.rect.x && CobraLar <= (AlimMaxLar)) && (CobraMeioAlt >= alimento->reg.rect.y) && (CobraMeioAlt <= AlimMaxLar)){
+    if(cobra->inicio->reg.rect.x == alimento->reg.rect.x){
+    	printf("UM JA FOI!!!!!!!!!!!!!!!!!!!!!\n");
+       if(cobra->inicio->reg.rect.y == alimento->reg.rect.y){
     	printf("OIIIIIIIIIIOIIIIIIII\n");
+    	aumentaCobra(cobra);
     	inicializaAlimento(alimento);
         return 1;
+       }
     }
    return 0;
  }
